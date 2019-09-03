@@ -15,10 +15,10 @@ module.exports = {
             nome: req.body.nome,
             estado_id: req.body.estado.id
         }
-        repository.create(req.body).then(result => {
-            req.body.id = result[0];
+        repository.create(cidade).then(result => {
 
-            res.send(req.body);
+
+            res.send(cidade);
         }).catch(error => {
             res.status(500).send(error);
         });

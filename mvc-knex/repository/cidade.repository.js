@@ -20,17 +20,13 @@ module.exports = {
             .where({ id: params.id });
     },
     create: (params) => {
-        return knex.insert('c.nome as cidade_nome', 'e.id as estado_id')
-            .from('cidade as c')
-            .innerJoin('estado as e', 'e.id', 'c.estado_id')
-            .into('cidade')
-
-        // return knex.insert(params.nome, params.estado_id).into('cidade');
+        return knex.insert(params).into('cidade');
     },
+    
     update: (params) => {
         return knex('cidade').update(params.nome, params.estado_id, params.id).where({ id: params.id });
     },
-    delete: (params) => {
-        return knex('cidade').del().where({ id: params.id });
-    }
+        delete: (params) => {
+            return knex('cidade').del().where({ id: params.id });
+        }
 }
