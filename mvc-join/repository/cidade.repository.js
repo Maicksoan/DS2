@@ -16,10 +16,10 @@ module.exports = {
     create: (params, callback) => {
         connection.query('INSERT INTO cidade (nome,estado_id) VALUES (?,?)', [params.nome, params.estado_id], callback);
     },
-    update: (params, callback) => {
-        connection.query('UPDATE cidade SET nome = ?, estado_id = ? WHERE id = ?', [params.nome, params.estado_id, params.id], callback);
+    update: (params) => {
+        return knex('cidade').update(params).where({ id: params.id });
     },
-    delete: (params, callback) => {
-        connection.query('DELETE FROM cidade WHERE id = ?', [params.id], callback);
+    delete: (params) => {
+        return knex('cidade').del().where({ id: params.id });
     }
-}
+};

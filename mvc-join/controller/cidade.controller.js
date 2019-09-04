@@ -62,28 +62,25 @@ module.exports = {
         });
     },
     update: (req, res) => {
-        //Atualizar o id do objeto do req.body
-        const cidade = {
-            nome: req.body.nome,
-            estado_id: req.body.estado.id,
-            id: req.params.id
-        }
+        //Atualiza o id do objeto do req.body
 
-        repository.update(cidade, (error, result) => {
-            if (error) {
-                res.status(500).send(error);
+        repository.update(req.body).then(result => {
+            if (result.affectedRows == 0) {
+                res.status(404).send('not found');
+            } else {
+                res.send(result[0]);
             }
 
-            res.send(result);
+        }).catch(error => {
+            res.status(500).send(error)
         });
+
     },
     delete: (req, res) => {
-        repository.delete(req.params, (error, result) => {
-            if (error) {
-                res.status(500).send(error);
-            }
-
-            res.status(204).send();
+        repository.delete(req.params).then(result => {
+            res.send(result[0]);
+        }).catch(error => {
+            res.status(500).send(error);
         });
     }
 }
