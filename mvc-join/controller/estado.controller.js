@@ -11,7 +11,7 @@ module.exports = {
             res.send(result);
         });
 
-    },
+    }, 
     create: (req, res) => {
 
         repository.create(req.body, (error, result) => {

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files (x86)\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add express body-parser mysql
+  C:\Program Files (x86)\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add express
 
 PATH: 
-  C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\nodejs\;C:\Program Files\dotnet\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Maicksoan\AppData\Local\Microsoft\WindowsApps;C:\Users\Maicksoan\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Maicksoan\AppData\Roaming\npm;C:\Users\Maicksoan\.dotnet\tools;C:\Users\Maicksoan\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Users\Maicksoan\AppData\Local\Yarn\bin;C:\Users\Maicksoan\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
+  C:\oraclexe\app\oracle\product\10.2.0\server\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Felipe\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Felipe\AppData\Roaming\npm;C:\src\flutter\bin;C:\Users\Felipe\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Users\Felipe\AppData\Local\Yarn\bin;C:\Users\Felipe\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;
 
 Yarn version: 
   1.17.3
@@ -23,7 +23,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "mvc-pedido",
+    "name": "mvc-pedidos",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT"
