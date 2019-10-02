@@ -1,23 +1,20 @@
-const express = require('express');//Importa express
+const express = require('express');
 const consign = require('consign');
 const bodyParser = require('body-parser');
 
+//Instancia a aplicação
+const app = express();
 
-const app = express();//instancia aplicação
-
-
-//Adiciona o body-parser à aplicação para poder receber Json no body da requisição
-app.use(bodyParser.json());
+//Adiciona o body-parser à aplicação para poder receber JSON no body da requisição
+app.use( bodyParser.json() );
 
 //Padrao
-app.get('/', (req, res) => {
+app.get('/', function(req, res){
     res.send('Its Working!');
 });
-
 
 consign()
     .include('routes')
     .into(app);
 
-
-app.listen(3000);//levanta aplicação  
+app.listen(3000);

@@ -1,25 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const routes = require('./routes');
-const connection = require('./mysql-connection');
+const personRoute = require('./person.router');
+const stateRoute = require('./state.router');
 
-//Criar aplicação express
-const app = express();
+const routes = new express.Router();
 
-//Adiciona o body parser na aplicação
-app.use(bodyParser.json());
+routes.use('/persons', personRoute);
+routes.use('/states', stateRoute);
 
-//Adiciona o arquivo de mapeamento de rota
-app.use(routes);
-
-//Tenta conectar com o banco de dados
-connection.connect((error) => {
-    if (error) {
-        console.error('Deu pau: %s', error.message);
-        return;
-    }
-
-    const appServer = app.listen(3000, () => {
-        console.log('Applicação está rodando na porta %s', appServer.address().port);
-    });
-});
+module.exports = routes;

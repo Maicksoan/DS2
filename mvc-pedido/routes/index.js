@@ -1,15 +1,14 @@
 const express = require('express');
-const clienteRouter = require('./cliente.router');
-const vendedorRoutes = require('./vendedor.router'); 
-const produtoRoutes = require('./produto.router');
-const pedidoRoutes = require('./pedido.router');
-const pedidoitemRoutes = require('./pedidoitem.router');
+const clienteRoute = require('./cliente.router');
+const vendedorRoute = require('./vendedor.router');
+const produtoRoute = require('./produto.router');
+const pedidoRoute = require('./pedido.router');
+
 const routes = new express.Router();
 
-routes.use('/cliente',  clienteRouter);
-routes.use('/vendedor', vendedorRoutes);
-routes.use('/produto', produtoRoutes);
-routes.use('/pedido', pedidoRoutes);
-routes.use('/pedidoitem', pedidoitemRoutes);
+routes.use('/clientes', clienteRoute);
+routes.use('/vendedores', vendedorRoute);
+routes.use('/produtos', produtoRoute);
+routes.use('/pedidos', pedidoRoute);
 
 module.exports = routes;

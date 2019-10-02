@@ -1,38 +1,41 @@
-
 module.exports = (app) => {
+
     app.get('/operacao/:tipooperacao', (req, res) => {
+
         var tipo = req.params.tipooperacao;
-        var paramA = Number(req.query.valor1);
-        var paramB = Number(req.query.valor2);
-        var Result = 0;
-        if (isNaN(paramA) || isNaN(paramB)) {
-            res.status(400).send('Parâmetro Inválido');
-        } else {
-            if (tipo == 'somar') {
-                Result = (paramA) + (paramB);
-            } else if (tipo == 'subitrair') {
-                Result = (paramA) - (paramB);
-            } else if (tipo == 'multiplicar') {
-                Result = (paramA) * (paramB);
-            } else if (tipo == 'dividir') {
-                if (paramA <= 0) {
-                    res.status(400).send('Parâmetro 1 deve ser maior que zero');
-                } else {
-                    Result = (paramA) / (paramB);
-                }
-
-            } else if (tipo == 'regratres') {
-                var valorX = paramA * 1;
-                var valorY = paramB * 100;
-                Result = (valorY) / (valorX);
-            } else {
-                res.status(404).send('Operação Invalída')   
-            }
-
-
-            res.send(`Result ${Result}`);
+    
+        var param1 = Number(req.query.a);
+        var param2 = Number(req.query.b);
+    
+        var resultado = 0;
+    
+        switch (tipo) {
+            case 'somar':
+                resultado = param1 + param2;
+                break;
+    
+            case 'subtrair':
+                resultado = param1 - param2;
+                break;
+    
+            case 'dividir':
+                resultado = param1 / param2;
+                break;
+    
+            case 'multiplicar':
+                resultado = param1 * param2;
+                break;
+    
+                case 'regratres':
+                    resultado = (param2 * 100) / param1;
+                    break;
+    
+            default:
+                res.status(404).send('Operação inválida');
         }
-
+    
+        res.send('-> ' + resultado);
+    
     });
-}
 
+};

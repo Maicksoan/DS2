@@ -3,14 +3,15 @@ const bodyParser = require('body-parser');
 
 const routes = require('./routes');
 
-//criar aplicação express
+//Criar aplicação express
 const app = express();
 
 //Adiciona o body parser na aplicação
-app.use(bodyParser.json());
-//adiciona o arquivo de mapeamento de rota
-app.use(routes);
+app.use( bodyParser.json() );
+
+//Adiciona o arquivo de mapeamento de rota
+app.use( routes );
 
 const appServer = app.listen(3000, () => {
-    console.log('Aplicação esta rodando na porta %s', appServer.address().port);
+    console.log('Applicação está rodando na porta %s', appServer.address().port);
 });

@@ -1,8 +1,8 @@
 const repository = require('../repository/pedido.repository');
+const moment = require('moment');
 
 module.exports = {
-
-    find: (req, res) => {
+    find :(req,res) => {
 
         repository.find((error, result) => {
             if (error) {
@@ -10,118 +10,98 @@ module.exports = {
             }
 
             const pedidos = [];
-            //converte de RELACIONAL para OBJETO
-            for (ped of result) {
+
+            for (item of result) {
 
                 let pedido = {
-                    id: ped.ID_PED,
-                    codigo: ped.CODIGO_PED,
-                    dtpedido: ped.DATA_PED,
-                    observacao: ped.OBSERVACAO_PED,
+                    id: item.p_id,
+                    codigo: item.p_codigo,
+                    dtpedido: moment(item.dtpedido).format('YYYY-MM-DD'),
+                    observacao: item.observacao,
                     cliente: {
-                        id: ped.ID_CLIENTE,
-                        codigo: ped.CODIGO_CLI,
-                        nome: ped.NOME_CLI,
-                        email: ped.EMAIL_CLI
+                        id: item.c_id,
+                        codigo: item.c_codigo,
+                        nome: item.c_nome,
+                        email: item.c_email
                     },
                     vendedor: {
-                        id: ped.ID_VENDEDOR,
-                        codigo: ped.CODIGO_VENDEDOR,
-                        nome: ped.NOME_VENDEDOR,
-                        email: ped.EMAIL_VENDEDOR
+                        id: item.v_id,
+                        codigo: item.v_codigo,
+                        nome: item.v_nome,
+                        email: item.v_email
                     },
-                    itens: ped.itens
-
+                    itens: item.itens 
                 }
-                pedidos.push(pedido);
 
+                pedidos.push( pedido );
             }
 
             res.send(pedidos);
         });
 
     },
-
-    findByID: (req, res) => {
-
-        repository.findById(req.params, (error, result) => {
-            if (error) {
-                res.status(500).send(error);
-            }
-            const pedidos = [];
-            //converte de RELACIONAL para OBJETO
-            for (ped of result) {
-
-                let pedido = {
-                    id: ped.ID_PED,
-                    codigo: ped.CODIGO_PED,
-                    dtpedido: ped.DATA_PED,
-                    observacao: ped.OBSERVACAO_PED,
-                    cliente: {
-                        id: ped.ID_CLIENTE,
-                        codigo: ped.CODIGO_CLI,
-                        nome: ped.NOME_CLI,
-                        email: ped.EMAIL_CLI
-                    },
-                    vendedor: {
-                        id: ped.ID_VENDEDOR,
-                        codigo: ped.CODIGO_VENDEDOR,
-                        nome: ped.NOME_VENDEDOR,
-                        email: ped.EMAIL_VENDEDOR
-                    },
-                    itens: ped.itens
-
-                }
-                pedidos.push(pedido);
-
-            }
-
-            res.send(pedidos);
-        });
-
-    },
-//            if (!result[0]) {
-//                res.status(404).send('not found');
-//            } else {
-//                res.send(result[0]);
-//            }
-
-
-    //    });
-
-  //  },
-
-    create: (req, res) => {
+    create: (req,res) => { 
+        
         repository.create(req.body, (error, result) => {
             if (error) {
                 res.status(500).send(error);
             }
 
             res.send(result);
-
         });
-
     },
+    findById: (req,res) => {
+        
+        repository.findById(req.params, (error, result) => {
+            if (error) {
+                res.status(500).send(error);
+            }
 
-    update: (req, res) => {
-        //Atualiza o id do objeto do req.body
+            //Valida se o id existe no banco
+            if (! result[0]) {
+                res.status(404).send('not found');
+            }
+
+            let pedido = {
+                id: result[0].p_id,
+                codigo: result[0].p_codigo,
+                dtpedido: moment(result[0].dtpedido).format('YYYY-MM-DD'),
+                observacao: result[0].observacao,
+                cliente: {
+                    id: result[0].c_id,
+                    codigo: result[0].c_codigo,
+                    nome: result[0].c_nome,
+                    email: result[0].c_email
+                },
+                vendedor: {
+                    id: result[0].v_id,
+                    codigo: result[0].v_codigo,
+                    nome: result[0].v_nome,
+                    email: result[0].v_email
+                },
+                itens: result[0].itens 
+            }
+
+            res.send(pedido);
+        });
+    },
+    update: (req,res) => {
+        //Atualizar o id do objeto do req.body
         req.body.id = req.params.id;
+        
         repository.update(req.body, (error, result) => {
             if (error) {
                 res.status(500).send(error);
             }
-            console.log(req.body);
+
             if (result.affectedRows == 0) {
                 res.status(404).send('not found');
-            } else {
-                res.send(result);
             }
-
+            
+            res.send(result);
         });
-
     },
-    delete: (req, res) => {
-
+    delete: (req,res) => {
         repository.delete(req.params, (error, result) => {
             if (error) {
                 res.status(500).send(error);
@@ -129,6 +109,5 @@ module.exports = {
 
             res.status(204).send();
         });
-
     }
 }

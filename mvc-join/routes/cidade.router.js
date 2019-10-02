@@ -1,4 +1,4 @@
-const express = require('express');
+ const express = require('express');
 const cidadeController = require('../controller/cidade.controller');
 
 const routes = express.Router();

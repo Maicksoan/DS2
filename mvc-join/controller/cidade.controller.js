@@ -1,7 +1,7 @@
 const repository = require('../repository/cidade.repository');
 
 module.exports = {
-    find: (req, res) => {
+    find :(req,res) => {
 
         repository.find((error, result) => {
             if (error) {
@@ -22,7 +22,7 @@ module.exports = {
                         sigla: item.estado_sigla
                     }
                 }
-
+                
                 cidades.push(cidade);
             }
 
@@ -30,8 +30,8 @@ module.exports = {
         });
 
     },
-    create: (req, res) => {
-
+    create: (req,res) => { 
+        
         //Converter de OBJETO para RELACIONAL
         const cidade = {
             nome: req.body.nome,
@@ -46,41 +46,59 @@ module.exports = {
             res.send(result);
         });
     },
-    findById: (req, res) => {
-
+    findById: (req,res) => {
+        
         repository.findById(req.params, (error, result) => {
             if (error) {
                 res.status(500).send(error);
             }
 
             //Valida se o id existe no banco
-            if (!result[0]) {
+            if (! result[0]) {
                 res.status(404).send('not found');
             }
 
-            res.send(result[0]);
+            //Converte de RELACIONAL para OBJETO
+            let cidade = {
+                id: result[0].cidade_id,
+                nome: result[0].cidade_nome,
+                estado: {
+                    id: result[0].estado_id,
+                    nome: result[0].estado_nome,
+                    sigla: result[0].estado_sigla
+                }
+            }
+
+            res.send(cidade);
         });
     },
-    update: (req, res) => {
-        //Atualiza o id do objeto do req.body
+    update: (req,res) => {
+        //Converter de OBJETO para RELACIONAL
+        const cidade = {
+            id: req.params.id,
+            nome: req.body.nome,
+            estado_id: req.body.estado.id
+        }
+        
+        repository.update(cidade, (error, result) => {
+            if (error) {
+                res.status(500).send(error);
+            }
 
-        repository.update(req.body).then(result => {
             if (result.affectedRows == 0) {
                 res.status(404).send('not found');
-            } else {
-                res.send(result[0]);
+            }
+            
+            res.send(result);
+        });
+    },
+    delete: (req,res) => {
+        repository.delete(req.params, (error, result) => {
+            if (error) {
+                res.status(500).send(error);
             }
 
-        }).catch(error => {
-            res.status(500).send(error)
-        });
-
-    },
-    delete: (req, res) => {
-        repository.delete(req.params).then(result => {
-            res.send(result[0]);
-        }).catch(error => {
-            res.status(500).send(error);
+            res.status(204).send();
         });
     }
 }

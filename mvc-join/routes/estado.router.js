@@ -1,4 +1,4 @@
-const express = require('express');
+ const express = require('express');
 const estadoController = require('../controller/estado.controller');
 
 const routes = express.Router();
