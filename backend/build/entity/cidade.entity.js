@@ -22,8 +22,8 @@ __decorate([
     __metadata("design:type", String)
 ], CidadeEntity.prototype, "nome", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => estado_entity_1.EstadoEntity, { eager: true, nullable: false }),
-    typeorm_1.JoinColumn({ name: 'estado_id' }),
+    typeorm_1.ManyToOne(type => estado_entity_1.EstadoEntity, { eager: true }),
+    typeorm_1.JoinColumn({ name: 'estado' }),
     __metadata("design:type", estado_entity_1.EstadoEntity)
 ], CidadeEntity.prototype, "estado", void 0);
 __decorate([

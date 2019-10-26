@@ -1,7 +1,9 @@
 const repository = require('../repository/cidade.repository');
+const estado = [];
 
 module.exports = {
-    find :(req,res) => {
+
+    find: (req, res) => {
 
         repository.find((error, result) => {
             if (error) {
@@ -9,27 +11,46 @@ module.exports = {
             }
 
             const cidades = [];
-
+            //converte de RELACIONAL para OBJETO
             for (item of result) {
 
-                //Converte de RELACIONAL para OBJETO
                 let cidade = {
                     id: item.cidade_id,
                     nome: item.cidade_nome,
                     estado: {
                         id: item.estado_id,
                         nome: item.estado_nome,
-                        sigla: item.estado_sigla
+                        sigra: item.estado_sigla
                     }
                 }
-                
                 cidades.push(cidade);
+
             }
 
             res.send(cidades);
         });
 
     },
+
+    findByID: (req, res) => {
+
+        repository.findById(req.params, (error, result) => {
+            if (error) {
+                res.status(500).send(error);
+            }
+
+            if (!result[0]) {
+                res.status(404).send('not found');
+            } else {
+                
+                res.send(result[0]);
+            }
+
+
+        });
+
+    },
+
     create: (req,res) => { 
         
         //Converter de OBJETO para RELACIONAL
@@ -37,62 +58,37 @@ module.exports = {
             nome: req.body.nome,
             estado_id: req.body.estado.id
         }
-
+        console.log(cidade);
         repository.create(cidade, (error, result) => {
             if (error) {
                 res.status(500).send(error);
             }
 
-            res.send(result);
-        });
-    },
-    findById: (req,res) => {
-        
-        repository.findById(req.params, (error, result) => {
-            if (error) {
-                res.status(500).send(error);
-            }
-
-            //Valida se o id existe no banco
-            if (! result[0]) {
-                res.status(404).send('not found');
-            }
-
-            //Converte de RELACIONAL para OBJETO
-            let cidade = {
-                id: result[0].cidade_id,
-                nome: result[0].cidade_nome,
-                estado: {
-                    id: result[0].estado_id,
-                    nome: result[0].estado_nome,
-                    sigla: result[0].estado_sigla
-                }
-            }
-
             res.send(cidade);
         });
     },
-    update: (req,res) => {
-        //Converter de OBJETO para RELACIONAL
+    update: (req, res) => {
         const cidade = {
-            id: req.params.id,
             nome: req.body.nome,
-            estado_id: req.body.estado.id
+            estado_id: req.body.estado.id,
+            id:  req.params.id
         }
-        
+        //Converter de OBJETO para RELACIONAl
+        console.log(cidade);
         repository.update(cidade, (error, result) => {
             if (error) {
                 res.status(500).send(error);
             }
-
             if (result.affectedRows == 0) {
                 res.status(404).send('not found');
+            } else {
+                res.send(result);
             }
-            
-            res.send(result);
+
         });
+
     },
-    delete: (req,res) => {
+    delete: (req, res) => {
         repository.delete(req.params, (error, result) => {
             if (error) {
                 res.status(500).send(error);
@@ -100,5 +96,6 @@ module.exports = {
 
             res.status(204).send();
         });
+
     }
 }

@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], ClienteEntity.prototype, "email", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => cidade_entity_1.CidadeEntity, { eager: true, nullable: false }),
+    typeorm_1.ManyToOne(type => cidade_entity_1.CidadeEntity, { eager: true }),
     typeorm_1.JoinColumn({ name: 'cidade_id' }),
     __metadata("design:type", cidade_entity_1.CidadeEntity)
 ], ClienteEntity.prototype, "cidade", void 0);

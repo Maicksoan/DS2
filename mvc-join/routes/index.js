@@ -1,10 +1,9 @@
 const express = require('express');
-const estadoRoute = require('./estado.router');
-const cidadeRoute = require('./cidade.router');
-
+const estadoRouter = require('./estado.router');
+const cidadeRouter = require('./cidade.router');
 const routes = new express.Router();
 
-routes.use('/estados', estadoRoute);
-routes.use('/cidades', cidadeRoute);
+routes.use('/estado', estadoRouter);
+routes.use('/cidade', cidadeRouter);
 
 module.exports = routes;

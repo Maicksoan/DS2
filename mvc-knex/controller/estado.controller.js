@@ -1,57 +1,61 @@
 const repository = require('../repository/estado.repository');
+const estado = [];
 
 module.exports = {
-    find :(req,res) => {
+
+    find: (req, res) => {
 
         repository.find().then(result => {
             res.send(result);
         }).catch(error => {
             res.status(500).send(error);
         });
-
     },
-    create: (req,res) => { 
-        
-        repository.create(req.body).then(result => {
-            req.body.id = result[0];
 
-            res.send(req.body);
+    findByID: (req, res) => {
+
+        repository.findById(req.params).then(result => {
+            if (!result[0]) {
+                res.status(404).send('not found');
+            } else {
+                res.send(result[0]);
+            }
         }).catch(error => {
             res.status(500).send(error);
         });
     },
-    findById: (req,res) => {
-        
-        repository.findById(req.params).then(result => {
 
-            if (result.length > 0) {
-                res.send(result[0]);
-            } else {
+    create: (req, res) => {
+        repository.create(req.body).then(result => {
+            req.body.id = result[0];
+            res.send(req.body);
+        }).catch(error => {
+            res.status(500).send(error)
+        });
+
+    },
+
+    update: (req, res) => {
+        //Atualiza o id do objeto do req.body
+        repository.update(req.body).then(result => {
+            if (result.affectedRows == 0) {
                 res.status(404).send('not found');
+            } else {
+                res.send(result[0]);
             }
 
         }).catch(error => {
-            res.status(500).send(error);
+            res.status(500).send(error)
         });
 
-    },
-    update: (req,res) => {
-        //Atualizar o id do objeto do req.body
-        req.body.id = req.params.id;
-        
-        repository.update(req.body).then(result => {
-            res.send(req.body);
-        }).catch(error => {
-            res.status(500).send(error);
-        });
     },
     delete: (req,res) => {
         repository.delete(req.params).then(result => {
 
-            if (result.length > 0) {
-                res.status(204).send();
-            } else {
+            if (!result[0]) {
                 res.status(404).send('not found');
+            } else {
+                res.send(result[0]);
             }
 
         }).catch(error => {

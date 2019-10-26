@@ -1,18 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+const Router = require('./routes');
 
-//Criar aplicação express
 const app = express();
 
-//Adiciona o body parser na aplicação
 app.use(bodyParser.json());
 
-//Adiciona o arquivo de mapeamento de rota
-app.use(routes);
+app.use(Router);
 
 const appServer = app.listen(3000, () => {
-    console.log('Applicação está rodando na porta %s', appServer.address().port);
+    console.log('Aplicação está rodando! Na porta %s', appServer.address().port)
 });
 
 
