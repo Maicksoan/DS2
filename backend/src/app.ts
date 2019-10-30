@@ -2,11 +2,12 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
+//Rotas
 import estadoRouter from './router/estado.router';
 import cidadeRouter from './router/cidade.router';
 import clienteRouter from './router/cliente.router';
 import produtoRouter from './router/produto.router';
-import tabelaprecoRouter from './router/tabelapreco.router';
+import tabelaPrecoRouter from './router/tabelapreco.router';
 import vendedorRouter from './router/vendedor.router';
 import pedidoRouter from './router/pedido.router';
 
@@ -16,24 +17,24 @@ class App {
     constructor() {
         this.express = express();
         this.middleware();
-        this.routers();
+        this.routes();
     }
-    //carrega os middle da aplicacao
+
+    //Carrega os middleware da aplicação
     private middleware(): void {
         this.express.use(bodyParser.json());
         this.express.use(cors());
     }
 
-    private routers(): void {
+    private routes(): void {
         this.express.use('/estados', estadoRouter);
         this.express.use('/cidades', cidadeRouter);
         this.express.use('/clientes', clienteRouter);
         this.express.use('/produtos', produtoRouter);
-        this.express.use('/tabelaprecos', tabelaprecoRouter);
+        this.express.use('/tabelaprecos', tabelaPrecoRouter);
         this.express.use('/vendedores', vendedorRouter);
         this.express.use('/pedidos', pedidoRouter);
     }
 }
-
 
 export default new App().express;

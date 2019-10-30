@@ -1,82 +1,59 @@
 const repository = require('../repository/cidade.repository');
-const estado = [];
 
 module.exports = {
-
-    find: (req, res) => {
+    find :(req,res) => {
 
         repository.find().then(result => {
+            res.send(result);
+        }).catch(error => {
+            res.status(500).send(error);
+        });
 
-            const cidades = [];
-            //converte de RELACIONAL para OBJETO
-            for (item of result) {
+    },
+    create: (req,res) => { 
+        
+        repository.create(req.body).then(result => {
+            req.body.id = result[0];
 
-                let cidade = {
-                    id: item.cidade_id,
-                    nome: item.cidade_nome,
-                    estado: {
-                        id: item.estado_id,
-                        nome: item.estado_nome,
-                        sigra: item.estado_sigla
-                    }
-
-                }
-                cidades.push(cidade);
-            }
-            console.log(result);
-            res.send(cidades);
+            res.send(req.body);
         }).catch(error => {
             res.status(500).send(error);
         });
     },
-
-    findByID: (req, res) => {
-
+    findById: (req,res) => {
+        
         repository.findById(req.params).then(result => {
-            if (!result[0]) {
-                res.status(404).send('not found');
-            } else {
+
+            if (result.length > 0) {
                 res.send(result[0]);
+            } else {
+                res.status(404).send('not found');
             }
+
+        }).catch(error => {
+            res.status(500).send(error);
+        });
+
+    },
+    update: (req,res) => {
+        //Atualizar o id do objeto do req.body
+        req.body.id = req.params.id;
+        
+        repository.update(req.body).then(result => {
+            res.send(req.body);
         }).catch(error => {
             res.status(500).send(error);
         });
     },
+    delete: (req,res) => {
+        repository.delete(req.params).then(result => {
 
-    create: (req, res) => {
-        //Converter de OBJETO para RELACIONAL
-        const cidade = {
-            nome: req.body.nome,
-            estado_id: req.body.estado.id
-        }
-        repository.create(cidade).then(result => {
-            console.log(cidade);
-      //      req.body.id = result[0];
-            res.send(cidade);
-        }).catch(error => {
-            res.status(500).send(error)
-        });
-
-    },
-
-    update: (req, res) => {
-        //Atualiza o id do objeto do req.body
-
-        repository.update(req.body).then(result => {
-            if (result.affectedRows == 0) {
-                res.status(404).send('not found');
+            if (result.length > 0) {
+                res.status(204).send();
             } else {
-                res.send(result[0]);
+                res.status(404).send('not found');
             }
 
-        }).catch(error => {
-            res.status(500).send(error)
-        });
-
-    },
-    delete: (req, res) => {
-        repository.delete(req.params).then(result => {
-            res.send(result[0]);
         }).catch(error => {
             res.status(500).send(error);
         });

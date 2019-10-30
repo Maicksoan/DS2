@@ -1,17 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
-@Entity({ name: 'tabelapreco' })
 
+@Entity({name: 'tabelapreco'})
 export class TabelaPrecoEntity {
-    @PrimaryGeneratedColumn()
+
+    @PrimaryGeneratedColumn() 
     id: number;
 
-    @Column({ nullable: false, length: 6 })
+    @Column({nullable: false, length: 6})
     codigo: string;
 
-    @Column({ nullable: false, length: 50 })
+    @Column({nullable: false, length: 50})
     nome: string;
 
-    @Column({ nullable: false, type: 'double' })
+    @Column({nullable: true, type: 'double'})
     fator: number;
+
 }

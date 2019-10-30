@@ -2,12 +2,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClienteComponent } from './cliente/cliente.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { FormsModule } from '@angular/forms';
+
+import { ClienteComponent } from './cliente/cliente.component';
+import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dialog.component';
 
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
@@ -22,15 +23,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { CidadeComponent } from './cidade/cidade.component';
-
 
 import { AgmCoreModule } from '@agm/core';
 import { MapaComponent } from './mapa/mapa.component';
-
-
 
 @NgModule({
   declarations: [
@@ -39,8 +36,6 @@ import { MapaComponent } from './mapa/mapa.component';
     ConfirmDialogComponent,
     CidadeComponent,
     MapaComponent
-  
-    
   ],
   imports: [
     BrowserModule,
@@ -67,7 +62,7 @@ import { MapaComponent } from './mapa/mapa.component';
     })
   ],
   providers: [],
-  entryComponents:[ConfirmDialogComponent],
+  entryComponents: [ConfirmDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

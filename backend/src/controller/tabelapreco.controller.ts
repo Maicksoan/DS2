@@ -1,4 +1,4 @@
-import { TabelaPrecoEntity } from '../entity/tabelapreco.entity';
+import { TabelaPrecoEntity } from './../entity/tabelapreco.entity';
 import { Request, Response } from 'express';
 import {getRepository} from 'typeorm'
 
@@ -7,9 +7,9 @@ class TabelaPrecoController {
     public async find(req: Request, res: Response) {
 
         try {
-            const tabelapreco = await getRepository(TabelaPrecoEntity).find();
+            const tabelaprecos = await getRepository(TabelaPrecoEntity).find();
             
-            res.send(tabelapreco);
+            res.send(tabelaprecos);
         } catch (error) {
             res.status(500).send(error);
         }

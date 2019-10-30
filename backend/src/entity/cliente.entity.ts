@@ -1,17 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { CidadeEntity } from "./cidade.entity";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn} from 'typeorm';
+import { CidadeEntity } from './cidade.entity';
+
 
 @Entity({name: 'cliente'})
-export class ClienteEntity{
+export class ClienteEntity {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn() 
     id: number;
-    @Column({length: 6, nullable: false })
+
+    @Column({nullable: false, length: 6})
     codigo: string;
-    @Column({ length: 50, nullable: false })
+
+    @Column({nullable: false, length: 50})
     nome: string;
-    @Column({ length: 255, nullable: false })
+
+    @Column({nullable: false, length: 255})
     email: string;
+
     @ManyToOne(type => CidadeEntity, { eager: true })
     @JoinColumn({ name: 'cidade_id' })
     cidade: CidadeEntity;

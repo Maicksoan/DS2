@@ -1,9 +1,10 @@
 const express = require('express');
-const personRouter = require('./person.router');
-const stateRoute = require('./states.router');
+const personRoute = require('./person.router');
+const stateRoute = require('./state.router');
+
 const routes = new express.Router();
 
-routes.use('/persons', personRouter);
+routes.use('/persons', personRoute);
 routes.use('/states', stateRoute);
 
 module.exports = routes;

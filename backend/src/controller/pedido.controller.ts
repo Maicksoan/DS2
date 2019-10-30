@@ -1,4 +1,4 @@
-import { PedidoEntity } from '../entity/pedido.entity';
+import { PedidoEntity } from './../entity/pedido.entity';
 import { Request, Response } from 'express';
 import {getRepository} from 'typeorm'
 

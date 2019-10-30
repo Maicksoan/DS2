@@ -1,4 +1,4 @@
-import { VendedorEntity } from '../entity/vendedor.entity';
+import { VendedorEntity } from './../entity/vendedor.entity';
 import { Request, Response } from 'express';
 import {getRepository} from 'typeorm'
 
